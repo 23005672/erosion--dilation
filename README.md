@@ -29,37 +29,40 @@ Reg no : 212223240141
 # Import the necessary packages
 import cv2
 import numpy as np
-# Create a blank image (100 pixels high, 400 pixels wide)
-img = np.zeros((100, 400), dtype='uint8')
+from matplotlib import pyplot as plt
 
 # Create the Text using cv2.putText
-cv2.putText(img, 'Riya', (60, 70), cv2.FONT_HERSHEY_SIMPLEX, 2, (255), 5)
-cv2.imshow("Original Image" , img)
+img = np.zeros((100,400),dtype = 'uint8')
+font = cv2.FONT_HERSHEY_SIMPLEX
+cv2.putText(img ,'Riya',(80,70),font,2,(255),5,cv2.LINE_AA)
+plt.imshow(img)
+plt.axis('off')
 
 # Create the structuring element
-kernel = np.ones((5, 5), np.uint8)
+kernel = np.ones((5,5),np.uint8)
+kernel1 = cv2.getStructuringElement(cv2.MORPH_CROSS,(5,5))
+cv2.erode(img,kernel)
 
 # Erode the image
-eroded_img = cv2.erode(img, kernel, iterations=1)
-cv2.imshow("Eroded Image" ,eroded_img)
+img_erode = cv2.erode(img,kernel1)
+plt.imshow(img_erode)
+plt.axis('off')
 
 # Dilate the image
-dilated_img = cv2.dilate(img, kernel, iterations=1)
-cv2.imshow("Dilated Image" , dilated_img)
-
-cv2.waitKey(0)
-cv2.destroyAllWindows()
+img_dilate = cv2.dilate(img,kernel1)
+plt.imshow(img_dilate)
+plt.axis('off')
 ```
 ## Output:
 
 ### Display the input Image
-![Screenshot 2024-10-19 085805](https://github.com/user-attachments/assets/5b5b643f-caae-4b59-9e5e-810c1681164f)
+![Screenshot 2024-10-24 152618](https://github.com/user-attachments/assets/55791e8f-ade6-4be6-961b-f4a556f20d05)
 
 ### Display the Eroded Image
-![Screenshot 2024-10-19 085821](https://github.com/user-attachments/assets/3ae0d1df-dff1-4176-862d-6ce664f342ca)
+![Screenshot 2024-10-24 152631](https://github.com/user-attachments/assets/a0db6054-f2d8-4c18-b98c-15fa203ddedf)
 
 ### Display the Dilated Image
-![Screenshot 2024-10-19 085834](https://github.com/user-attachments/assets/e0ce41e3-4425-4993-8005-7eb1afc21703)
+![Screenshot 2024-10-24 152640](https://github.com/user-attachments/assets/0af802da-2659-4e0d-ba91-2f27f6c30d83)
 
 ## Result
 Thus the generated text image is eroded and dilated using python and OpenCV.
